@@ -71,3 +71,5 @@ public class IntroToFileIO {
 		}
 	}
 }
+
+//Copyright 2017 Ryland
