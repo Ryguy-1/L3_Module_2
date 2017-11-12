@@ -1,5 +1,4 @@
-"elif tset a si sihT"
-"txet emos si sihT"
-"txet erom emos si ereH"
-
-//Copyright 2017 Ryland
+First
+Second
+Third
+Second

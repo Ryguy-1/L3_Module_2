@@ -1,7 +1,11 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -14,7 +18,7 @@ public class To_DoListTracker implements ActionListener{
 	JButton remove = new JButton();
 	JButton save = new JButton();
 	JButton load = new JButton();
-	HashMap<Integer, String> list = new HashMap<Integer,String>();
+	ArrayList<String> list = new ArrayList<String>();
 public static void main(String[] args) {
 	To_DoListTracker tracker = new To_DoListTracker();
 	
@@ -51,23 +55,14 @@ void setup() {
 @Override
 public void actionPerformed(ActionEvent e) {
 	if(e.getSource()==add) {
-		System.out.println("ADD");
-		String place = JOptionPane.showInputDialog("What place on the list is this: ");
-		int number = Integer.parseInt(place);
-		if(list.containsKey(number)) {
-			JOptionPane.showMessageDialog(null, "This is already: "+list.get(number));
-		}else {
-			String word = JOptionPane.showInputDialog("Add: ");
-		list.put(number, word);
-		}	
+		System.out.println("add");
+		String word = JOptionPane.showInputDialog("Add: ");
+		list.add(word);
 	}else if(e.getSource()==remove) {
 		String number = JOptionPane.showInputDialog("Which number would you like to remove: ");
 		int number1 = Integer.parseInt(number);
-		if(list.containsKey(number1)) {
-			list.remove(number1);
-		}else {
-			JOptionPane.showMessageDialog(null, "There is no task under the number "+number1);
-		}
+		number1-=1;
+		list.remove(number1);
 	}else if(e.getSource()==save) {
 		String sentence = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -85,6 +80,30 @@ public void actionPerformed(ActionEvent e) {
 			e1.printStackTrace();
 		}
 		
+		
+	}else if(e.getSource()==load){
+		String word = "";
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("src/intro_to_file_io/test2.txt"));
+			
+			String line = br.readLine();
+			list = new ArrayList<String>();
+				while(line != null){
+					list.add(line);
+					word += line;
+					word+=System.lineSeparator();
+					line = br.readLine();
+				}
+				JOptionPane.showMessageDialog(null, word);
+				
+			br.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 	}
 	
